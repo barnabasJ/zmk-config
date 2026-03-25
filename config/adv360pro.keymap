@@ -39,9 +39,12 @@
      *   "balanced" — decides tap vs hold based on whether the NEXT key is
      *                pressed AND released before the tapping term expires.
      *   "tap-preferred" — if tapping-term expires without another keypress,
-     *                resolves as TAP. Hold only activates when another key
-     *                is pressed within the tapping-term. Good for Vim-style
-     *                key repeat (e.g., holding j/k to scroll).
+     *                resolves as TAP. (Not used here because it conflicts
+     *                with hold-trigger-on-release.)
+     *
+     * Key repeat tip: double-tap and hold a home row key to get key repeat
+     * (e.g., tap J then hold J to scroll in Vim). This works because
+     * quick-tap-ms bypasses the hold-tap logic on the second press.
      */
     behaviors {
         /*
@@ -90,7 +93,7 @@
             label = "HOME_MOD_LEFT";
             bindings = <&kp>, <&kp>;
             #binding-cells = <2>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
@@ -106,7 +109,7 @@
             label = "HOME_MOD_RIGHT";
             bindings = <&kp>, <&kp>;
             #binding-cells = <2>;
-            flavor = "tap-preferred";
+            flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <175>;
             require-prior-idle-ms = <150>;
